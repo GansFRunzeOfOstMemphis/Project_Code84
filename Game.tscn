@@ -1,39 +1,40 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://MainCharacter.gd" type="Script" id=1]
-[ext_resource path="res://MainCharacter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://BasePlatformTile.tscn" type="PackedScene" id=3]
-[ext_resource path="res://TemplateEnemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/characters/playable/MainCharacter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://tileset_base_first.tres" type="TileSet" id=2]
+[ext_resource path="res://GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GameHUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 5 )
 
 [node name="Game" type="Node2D"]
 
-[node name="MainCharacter" parent="." instance=ExtResource( 2 )]
-position = Vector2( 400, 272 )
-script = ExtResource( 1 )
+[node name="TileMapBase" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 9, 1, 0, 43, 1, 0, 65545, 1, 0, 65579, 1, 0, 131081, 1, 0, 131115, 1, 0, 196617, 1, 0, 196651, 1, 0, 262153, 1, 0, 262187, 1, 0, 327689, 1, 0, 327723, 1, 0, 393225, 1, 0, 393240, 3, 0, 393241, 3, 0, 393242, 2, 0, 393243, 2, 0, 393244, 2, 0, 393245, 2, 0, 393246, 3, 0, 393247, 3, 0, 393259, 1, 0, 458761, 1, 0, 458795, 1, 0, 524297, 1, 0, 524331, 1, 0, 589833, 1, 0, 589867, 1, 0, 655369, 1, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655395, 3, 0, 655396, 3, 0, 655397, 3, 0, 655398, 3, 0, 655399, 3, 0, 655400, 3, 0, 655403, 1, 0, 720905, 1, 0, 720912, 1, 0, 720939, 1, 0, 786441, 1, 0, 786448, 1, 0, 786475, 1, 0, 851977, 1, 0, 851984, 1, 0, 851997, 3, 0, 851998, 3, 0, 851999, 3, 0, 852000, 3, 0, 852001, 3, 0, 852011, 1, 0, 917513, 1, 0, 917514, 2, 0, 917515, 2, 0, 917520, 1, 0, 917521, 2, 0, 917522, 2, 0, 917523, 2, 0, 917524, 2, 0, 917525, 3, 0, 917526, 3, 0, 917544, 2, 0, 917545, 2, 0, 917546, 2, 0, 917547, 1, 0, 983049, 1, 0, 983056, 1, 0, 983083, 1, 0, 1048585, 1, 0, 1048619, 1, 0, 1114121, 1, 0, 1114155, 1, 0, 1179657, 0, 0, 1179658, 0, 0, 1179659, 0, 0, 1179660, 0, 0, 1179661, 0, 0, 1179662, 0, 0, 1179663, 0, 0, 1179664, 0, 0, 1179665, 0, 0, 1179666, 0, 0, 1179667, 0, 0, 1179668, 0, 0, 1179669, 0, 0, 1179670, 0, 0, 1179671, 0, 0, 1179672, 0, 0, 1179673, 0, 0, 1179674, 0, 0, 1179675, 0, 0, 1179676, 0, 0, 1179677, 0, 0, 1179678, 0, 0, 1179679, 0, 0, 1179680, 0, 0, 1179681, 0, 0, 1179682, 0, 0, 1179683, 0, 0, 1179684, 0, 0, 1179685, 0, 0, 1179686, 0, 0, 1179687, 0, 0, 1179688, 0, 0, 1179689, 0, 0, 1179690, 0, 0, 1179691, 0, 0 )
 
-[node name="TemplateEnemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 368, 272 )
+[node name="GameHUD" parent="." instance=ExtResource( 4 )]
 
-[node name="BasePlatformTile" parent="." instance=ExtResource( 3 )]
-position = Vector2( 400, 304 )
+[node name="Label" type="Label" parent="GameHUD"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -43.0
+margin_right = 43.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+text = "Future HUD"
 
-[node name="BasePlatformTile2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 432, 304 )
+[node name="MainCharacter" parent="." instance=ExtResource( 1 )]
+position = Vector2( 448, 264 )
 
-[node name="BasePlatformTile3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 368, 304 )
-
-[node name="BasePlatformTile4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 336, 288 )
-
-[node name="BasePlatformTile5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 464, 304 )
-
-[node name="BasePlatformTile6" parent="." instance=ExtResource( 3 )]
-position = Vector2( 496, 304 )
-
-[node name="BasePlatformTile7" parent="." instance=ExtResource( 3 )]
-position = Vector2( 656, 320 )
-
-[node name="BasePlatformTile8" parent="." instance=ExtResource( 3 )]
-position = Vector2( 688, 320 )
+[node name="GameCamera" parent="MainCharacter" instance=ExtResource( 3 )]
+position = Vector2( 0, 0 )
+scale = Vector2( 2, 2 )
+current = true
+smoothing_speed = 8.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://GameCamera.gd" type="Script" id=1]
+
+[node name="GameCamera" type="Camera2D"]
+position = Vector2( 448, 272 )
+smoothing_enabled = true
+smoothing_speed = 3.0
+script = ExtResource( 1 )
