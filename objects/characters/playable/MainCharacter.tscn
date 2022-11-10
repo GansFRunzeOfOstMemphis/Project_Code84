@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://art/play_character/Char.png" type="Texture" id=1]
 [ext_resource path="res://objects/characters/playable/MainCharacter.gd" type="Script" id=2]
+[ext_resource path="res://objects/characters/playable/MainCharFSM.gd" type="Script" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -15,12 +16,17 @@ animations = [ {
 extents = Vector2( 10, 19 )
 
 [node name="MainCharacter" type="KinematicBody2D"]
-position = Vector2( 360, 264 )
+position = Vector2( 359, 264 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Body" type="Node2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
@@ -30,15 +36,20 @@ frames = SubResource( 1 )
 position = Vector2( 0, 1 )
 shape = SubResource( 2 )
 
-[node name="DashTimer" type="Timer" parent="."]
-wait_time = 0.2
-
-[node name="DashCDTimer" type="Timer" parent="."]
-wait_time = 4.0
-
 [node name="DashLine" type="Line2D" parent="."]
 position = Vector2( 1, 0 )
 points = PoolVector2Array( -1, 0, -1, 0, -1, 0 )
 default_color = Color( 0.0117647, 0.133333, 0.737255, 1 )
 
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="DashCDTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
+[connection signal="timeout" from="DashCDTimer" to="." method="_on_DashCDTimer_timeout"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
