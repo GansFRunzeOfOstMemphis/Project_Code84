@@ -103,6 +103,8 @@ animations = [ {
 extents = Vector2( 3.5, 8.25 )
 
 [node name="EnemySoldier" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 9
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
@@ -116,3 +118,31 @@ playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="FloorChecker" type="RayCast2D" parent="CollisionShape2D"]
+position = Vector2( 7, 4 )
+enabled = true
+cast_to = Vector2( 0, 8 )
+
+[node name="FloorChecker2" type="RayCast2D" parent="CollisionShape2D"]
+position = Vector2( -6, 4 )
+enabled = true
+cast_to = Vector2( 0, 8 )
+
+[node name="WallChecker" type="RayCast2D" parent="CollisionShape2D"]
+position = Vector2( 4, 0 )
+enabled = true
+cast_to = Vector2( 10, 0 )
+
+[node name="StandingTimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="WalkingTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="StandingTimer" to="." method="_on_StandingTimer_timeout"]
+[connection signal="timeout" from="WalkingTimer" to="." method="_on_WalkingTimer_timeout"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
