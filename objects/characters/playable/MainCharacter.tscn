@@ -121,7 +121,7 @@ script = ExtResource( 3 )
 
 [node name="Body" type="Node2D" parent="."]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedPlayer" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "fall"
@@ -136,6 +136,17 @@ position = Vector2( 1, 0 )
 points = PoolVector2Array( -1, 0, -1, 0, -1, 0 )
 default_color = Color( 0.0117647, 0.133333, 0.737255, 1 )
 
+[node name="ShootLine" type="Line2D" parent="."]
+visible = false
+position = Vector2( 1.52588e-05, 0 )
+scale = Vector2( 1.30769, 1 )
+points = PoolVector2Array( 0, 0, 15.2941, 0 )
+width = 3.0
+default_color = Color( 0.729412, 0.0627451, 0.172549, 1 )
+
+[node name="Position2D" type="Position2D" parent="ShootLine"]
+position = Vector2( 15.2941, 0 )
+
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.2
 
@@ -145,6 +156,9 @@ wait_time = 3.0
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 wait_time = 1.5
 
+[node name="AttackTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="DashCDTimer" to="." method="_on_DashCDTimer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

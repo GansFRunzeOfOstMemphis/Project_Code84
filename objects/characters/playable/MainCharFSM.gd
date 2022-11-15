@@ -19,7 +19,8 @@ func _state_logic(delta):
 	parent._apply_dash()
 	parent._apply_gravity(delta)
 	parent._apply_movement()
-	
+	parent.targeting(delta)
+	parent.send_stats()
 
 func _get_transition(delta):
 	match state:

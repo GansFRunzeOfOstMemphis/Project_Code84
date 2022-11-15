@@ -1,9 +1,11 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://art/enemies/SoldierMovementSheet.png" type="Texture" id=1]
 [ext_resource path="res://art/enemies/SoldierIdleSheet.png" type="Texture" id=2]
 [ext_resource path="res://art/enemies/SoldierAttackSheet.png" type="Texture" id=3]
 [ext_resource path="res://objects/characters/enemies/EnemySoldier.gd" type="Script" id=4]
+[ext_resource path="res://objects/characters/enemies/EnemySoldierFSM.gd" type="Script" id=5]
+[ext_resource path="res://fonts/Warioland4chmc.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
@@ -102,18 +104,25 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 8.25 )
 
+[sub_resource type="CircleShape2D" id=22]
+radius = 190.444
+
+[sub_resource type="DynamicFont" id=23]
+font_data = ExtResource( 6 )
+
 [node name="EnemySoldier" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 9
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 1, 0 )
 frames = SubResource( 2 )
 animation = "idle"
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -143,6 +152,43 @@ wait_time = 3.0
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="FireTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ShootLine" type="Line2D" parent="."]
+visible = false
+position = Vector2( 0, -1 )
+points = PoolVector2Array( 0, 0, 11, 0 )
+width = 1.0
+default_color = Color( 0.729412, 0.0627451, 0.172549, 1 )
+
+[node name="Position2D" type="Position2D" parent="ShootLine"]
+position = Vector2( 10, 0 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 22 )
+
+[node name="TestLabel" type="Label" parent="."]
+visible = false
+margin_left = -10.0
+margin_top = -14.0
+margin_right = 108.0
+margin_bottom = 1.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 23 )
+text = "s"
+
 [connection signal="timeout" from="StandingTimer" to="." method="_on_StandingTimer_timeout"]
 [connection signal="timeout" from="WalkingTimer" to="." method="_on_WalkingTimer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_InvulnerabilityTimer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_FireTimer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
