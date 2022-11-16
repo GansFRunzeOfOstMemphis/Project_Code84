@@ -42,3 +42,9 @@ func _on_QuitButton_pressed():
 
 func _on_RestartButton_pressed():
 	get_tree().reload_current_scene()
+	randomize()
+
+
+func _on_MainCharacter_killed():
+	get_tree().reload_current_scene()
+	randomize()

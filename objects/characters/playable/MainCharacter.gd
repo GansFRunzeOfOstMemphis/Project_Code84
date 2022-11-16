@@ -139,7 +139,8 @@ func regenerate_stm():
 
 #Функция "убийства" персонажа
 func kill():
-	pass
+	queue_free()
+	emit_signal("killed")
 
 func send_stats():
 	emit_signal("stats_sent", damage, 0.5, defense, speed, jump_speed)
